@@ -36,6 +36,10 @@ def inserir_autores_proposicoes(ano):
         return
     
     try:
+        
+        apagar = conexao.cursor();
+        apagar.execute(f'DELETE FROM proposicoes_autores WHERE proposicao_autor_ano = {ano}');
+        
         cursor = conexao.cursor()
 
         # Barra de progresso para a inserção dos autores de proposições

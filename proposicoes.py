@@ -34,9 +34,12 @@ def inserir_proposicoes(ano):
     if not conexao:
         print("Erro ao criar conexão com o banco de dados.")
         return
-
     
     try:
+        
+        apagar = conexao.cursor();
+        apagar.execute(f'DELETE FROM proposicoes WHERE proposicao_ano = {ano}');
+        
         cursor = conexao.cursor()
 
         # Barra de progresso para a inserção das proposições
@@ -51,7 +54,12 @@ def inserir_proposicoes(ano):
             sigla_tipo = proposicao["siglaTipo"]
             ementa = proposicao["ementa"]
             data_apresentacao = proposicao["dataApresentacao"]
-            id_tipo_tramitacao = proposicao["ultimoStatus"]["idTipoTramitacao"]
+            url = proposicao["uriPropPrincipal"]
+
+            if url:
+                principal = url.split('/')[-1]
+            else:
+                principal = None
             
             id_situacao = proposicao["ultimoStatus"].get("idSituacao", "")
 
@@ -70,8 +78,9 @@ def inserir_proposicoes(ano):
                     proposicao_ementa,
                     proposicao_apresentacao,
                     proposicao_arquivada,
-                    proposicao_aprovada
-                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    proposicao_aprovada,
+                    proposicao_principal
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 ON DUPLICATE KEY UPDATE
                     proposicao_titulo = VALUES(proposicao_titulo),
                     proposicao_ano = VALUES(proposicao_ano),
@@ -79,7 +88,8 @@ def inserir_proposicoes(ano):
                     proposicao_ementa = VALUES(proposicao_ementa),
                     proposicao_apresentacao = VALUES(proposicao_apresentacao),
                     proposicao_arquivada = VALUES(proposicao_arquivada),
-                    proposicao_aprovada = VALUES(proposicao_aprovada)
+                    proposicao_aprovada = VALUES(proposicao_aprovada),
+                    proposicao_principal = VALUES(proposicao_principal)
             """
             valores = (
                 proposicao_id,
@@ -91,6 +101,7 @@ def inserir_proposicoes(ano):
                 data_apresentacao,
                 arquivada,
                 aprovada,
+                principal
             )
 
             cursor.execute(sql, valores)
