@@ -3,7 +3,6 @@ import os
 import shutil
 from datetime import datetime
 
-
 largura_terminal = shutil.get_terminal_size().columns
 
 if __name__ == "__main__":
@@ -22,10 +21,9 @@ if __name__ == "__main__":
             inserirAutoresProposicoes(ano)
 
         elif opcao == '2':
-            # Exibe a mensagem de aviso
+            
             resposta = input('\nTem certeza que deseja continuar? Esse procedimento pode levar vários minutos. (s/n): ').strip().lower()
 
-            # Verifica a resposta do usuário
             if resposta == 's':
                 print('\nBuscando todas as proposições.\n')
                 ano_atual = datetime.now().year
@@ -37,7 +35,7 @@ if __name__ == "__main__":
                         print(f"Concluído o processamento do ano {ano}.")
                     except Exception as e:
                         print(f"Erro ao processar o ano {ano}: {e}")
-                        break  # Para o loop se ocorrer algum erro
+                        break  
             else:
                 print("\nProcesso cancelado pelo usuário.")
                 
@@ -54,7 +52,6 @@ if __name__ == "__main__":
             if resposta == 's':
                 print('\nBuscando todas as proposições.\n')
                 
-                # Limpar a pasta sql antes de iniciar o processamento
                 if os.path.exists(pasta_sql) and os.path.isdir(pasta_sql):
                     for arquivo in os.listdir(pasta_sql):
                         caminho_arquivo = os.path.join(pasta_sql, arquivo)
@@ -73,7 +70,7 @@ if __name__ == "__main__":
                         print(f"Concluído o processamento do ano {ano}.")
                     except Exception as e:
                         print(f"Erro ao processar o ano {ano}: {e}")
-                        break  # Para o loop se ocorrer algum erro
+                        break  
             else:
                 print("\nProcesso cancelado pelo usuário.")
         
@@ -82,6 +79,3 @@ if __name__ == "__main__":
             break
         else:
             print("Opção inválida. Tente novamente.")
-
-            
-                
