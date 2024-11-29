@@ -29,7 +29,7 @@ def inserirProposicoes(ano):
         apagar.execute(f'DELETE FROM proposicoes WHERE proposicao_ano = {ano}');
         
         cursor = conexao.cursor()
-        for index, proposicao in enumerate(tqdm(proposicoes, desc="Inserindo proposições")):
+        for index, proposicao in enumerate(tqdm(proposicoes, desc="Inserindo proposições", bar_format="\033[1;34m{l_bar}{bar}{r_bar}\033[0m")):
             proposicao_id = proposicao["id"]
             numero = proposicao["numero"]
             ano = proposicao["ano"] if proposicao["ano"] != 0 else ano
@@ -83,7 +83,7 @@ def inserirAutoresProposicoes(ano):
         apagar.execute(f'DELETE FROM proposicoes_autores WHERE proposicao_autor_ano = {ano}')
         cursor = conexao.cursor()
         
-        for index, proposicao in enumerate(tqdm(proposicao_autor, desc="Inserindo autores")):
+        for index, proposicao in enumerate(tqdm(proposicao_autor, desc="Inserindo proposições", bar_format="\033[1;31m{l_bar}{bar}{r_bar}\033[0m")):
             proposicao_id = proposicao.get("idProposicao", 0)  # Substituir por 0 se não existir
             autor_id = proposicao.get("idDeputadoAutor", 0)  # Substituir por 0 se não existir
             autor_nome = proposicao.get("nomeAutor", "")  # Substituir por string vazia se não existir

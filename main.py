@@ -22,17 +22,24 @@ if __name__ == "__main__":
             inserirAutoresProposicoes(ano)
 
         elif opcao == '2':
-            print('\nBuscando todas as proposições. Isso pode levar alguns minutos...\n')
-            ano_atual = datetime.now().year
-            for ano in range(1950, ano_atual + 1):
-                print(f"\nProcessando proposições do ano {ano}...")
-                try:
-                    inserirProposicoes(ano)
-                    inserirAutoresProposicoes(ano)
-                    print(f"Concluído o processamento do ano {ano}.")
-                except Exception as e:
-                    print(f"Erro ao processar o ano {ano}: {e}")
-                    break  # Para o loop se ocorrer algum erro
+            # Exibe a mensagem de aviso
+            resposta = input('\nTem certeza que deseja continuar? Esse procedimento pode levar vários minutos. (s/n): ').strip().lower()
+
+            # Verifica a resposta do usuário
+            if resposta == 's':
+                print('\nBuscando todas as proposições.\n')
+                ano_atual = datetime.now().year
+                for ano in range(1950, ano_atual + 1):
+                    print(f"\nProcessando proposições do ano {ano}...")
+                    try:
+                        inserirProposicoes(ano)
+                        inserirAutoresProposicoes(ano)
+                        print(f"Concluído o processamento do ano {ano}.")
+                    except Exception as e:
+                        print(f"Erro ao processar o ano {ano}: {e}")
+                        break  # Para o loop se ocorrer algum erro
+            else:
+                print("\nProcesso cancelado pelo usuário.")
                 
         elif opcao == '3':
             print("Saindo...\n\n")
