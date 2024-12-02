@@ -38,13 +38,15 @@ def inserirProposicoes(ano):
             data_apresentacao = proposicao["dataApresentacao"]
             url = proposicao["uriPropPrincipal"]
             
-            if url:
-                principal = url.split('/')[-1]
+            if sigla_tipo == 'PL':
+                principal = url.split('/')[-1] if url else None
             else:
                 principal = None
+
+
             
             id_situacao = proposicao["ultimoStatus"].get("idSituacao", "")
-            arquivada = 1 if id_situacao in ["9923", "1140"] else 0
+            arquivada = 1 if id_situacao in ["923", "1140"] else 0
             aprovada = 1 if id_situacao == "1140" else 0
             
             sql = "INSERT INTO proposicoes (proposicao_id, proposicao_numero, proposicao_titulo, proposicao_ano, proposicao_tipo, proposicao_ementa, proposicao_apresentacao, proposicao_arquivada, proposicao_aprovada, proposicao_principal) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ON DUPLICATE KEY UPDATE proposicao_titulo = VALUES(proposicao_titulo), proposicao_ano = VALUES(proposicao_ano), proposicao_tipo = VALUES(proposicao_tipo), proposicao_ementa = VALUES(proposicao_ementa), proposicao_apresentacao = VALUES(proposicao_apresentacao), proposicao_arquivada = VALUES(proposicao_arquivada), proposicao_aprovada = VALUES(proposicao_aprovada), proposicao_principal = VALUES(proposicao_principal)"
