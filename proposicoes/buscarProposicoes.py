@@ -42,8 +42,6 @@ def inserirProposicoes(ano):
                 principal = url.split('/')[-1] if url else None
             else:
                 principal = None
-
-
             
             id_situacao = proposicao["ultimoStatus"].get("idSituacao", "")
             arquivada = 1 if id_situacao in ["923", "1140"] else 0
