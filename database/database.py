@@ -18,7 +18,8 @@ def criar_conexao():
             user=os.getenv('DB_USER'),
             password=os.getenv('DB_PASS'),
             database=os.getenv('DB_NAME'),
-            port=db_port
+            port=db_port,
+            auth_plugin='mysql_native_password'
         )
         
         if conexao.is_connected():
