@@ -6,7 +6,7 @@ from datetime import datetime
 largura_terminal = shutil.get_terminal_size().columns
 
 if __name__ == "__main__":
-    os.system('clear')
+    os.system('cls')
     print("Iniciando busca de proposições e seus autores da Câmara dos Deputados.\n")
     
     while True:
@@ -14,7 +14,7 @@ if __name__ == "__main__":
         opcao = input("\n1 - Inserir proposições de um determinado ano\n2 - Inserir todas as proposições\n3 - Criar SQL de um ano especifico\n4 - Criar SQL com todas as proposicoes\n5 - Sair\n\nDigite a opção desejada: ")
         
         if opcao == '1':
-            os.system('clear')
+            os.system('cls')
             ano = input("\nDigite o ano desejado: ")
             print(f'\nBuscando as proposições do ano {ano}. Isso pode levar alguns minutos...\n')
             inserirProposicoes(ano)
